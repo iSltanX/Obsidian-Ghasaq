@@ -10,5 +10,8 @@ test-vault/.obsidian/graph.json
 test-vault/.obsidian/types.json
 # إضافات الطرف الثالث في خزينة الاختبار لا تُرفع (Style Settings يُثبَّت محليًا للاختبار)
 test-vault/.obsidian/plugins/
+# لقطات scripts/shoot-matrix.sh للفحص البصري: المتتبَّع منها ما يعرضه README فقط
+screenshots/matrix/
+screenshots/ui/
 # إعدادات Claude المحلية
 .claude/settings.local.json

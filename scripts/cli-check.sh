@@ -45,5 +45,5 @@ for scheme in obsidian moonstone; do
 done
 
 "$CLI" $V eval code="app.changeTheme('obsidian')" >/dev/null
-"$CLI" $V dev:screenshot path="$ROOT/screenshots/cli-ghasaq.png" >/dev/null && echo "✓ dev:screenshot ← screenshots/cli-ghasaq.png"
+"$CLI" $V dev:screenshot path="$ROOT/.cache/cli-ghasaq.png" >/dev/null && echo "✓ dev:screenshot ← .cache/cli-ghasaq.png"
 exit $fail
