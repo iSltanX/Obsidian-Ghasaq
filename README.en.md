@@ -7,7 +7,7 @@
 <p align="center">An Arabic-first Obsidian theme for long-form writing and reading: violet night ink, warm paper and an amber last light.</p>
 
 <p align="center">
-  <a href="https://github.com/iSltanX/Ghasaq/releases/latest"><img src="https://img.shields.io/github/v/release/iSltanX/Ghasaq?label=release&color=AB632B" alt="Release"></a>
+  <a href="https://github.com/iSltanX/Obsidian-Ghasaq/releases/latest"><img src="https://img.shields.io/github/v/release/iSltanX/Obsidian-Ghasaq?label=release&color=AB632B" alt="Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-5F459A" alt="License"></a>
   <img src="https://img.shields.io/badge/Obsidian-1.14.4%2B-1E1B29" alt="Obsidian 1.14.4+">
 </p>
@@ -46,8 +46,6 @@ Real screenshots from Obsidian 1.15.0 with the Arabic interface.
 | **Mixed-direction note** | **Command palette** |
 | ![A note mixing Arabic, English, numbers and code](screenshots/matrix/ar-ghasaq-mixed-read.png) | ![The command palette](screenshots/ui/ar-ghasaq-command-palette.png) |
 
-More in [`screenshots/`](screenshots/), including a full matrix: both modes, the Arabic and English interfaces, editing and reading, Canvas, Graph view, Bases and Settings.
-
 ## Features
 
 **Arabic typography**
@@ -84,7 +82,7 @@ Ghasaq is listed in the [Obsidian theme directory](https://community.obsidian.md
 
 ### Manually
 
-1. Download `manifest.json` and `theme.css` from the [latest release](https://github.com/iSltanX/Ghasaq/releases/latest).
+1. Download `manifest.json` and `theme.css` from the [latest release](https://github.com/iSltanX/Obsidian-Ghasaq/releases/latest).
 2. Put them in `.obsidian/themes/Ghasaq/` inside your vault.
 3. Pick Ghasaq under Settings → Appearance.
 
@@ -146,24 +144,29 @@ Both fonts are embedded in `theme.css` as subset woff2, so the theme makes no ne
 
 ## Issues and ideas
 
-- **Found a bug?** [Open an issue](https://github.com/iSltanX/Ghasaq/issues/new) with a screenshot, your Obsidian version, device and interface language.
-- **Have an idea?** [Open a suggestion](https://github.com/iSltanX/Ghasaq/issues/new) and describe what you'd like.
+- **Found a bug?** [Open an issue](https://github.com/iSltanX/Obsidian-Ghasaq/issues/new) with a screenshot, your Obsidian version, device and interface language.
+- **Have an idea?** [Open a suggestion](https://github.com/iSltanX/Obsidian-Ghasaq/issues/new) and describe what you'd like.
 
 ## Development
 
 - **Figma is the source of truth:** colours, sizes and type are changed there. Then run `scripts/figma/export-variables.js` through the Figma MCP and save its output to `tokens/figma.json`.
+- **Requirements:** Python 3 (tested on 3.9) with `fontTools` and `brotli`, plus `PyYAML` for the Style Settings check:
+
+  ```
+  python3 -m pip install fonttools brotli pyyaml
+  ```
 - **One build command:**
 
   ```
   python3 scripts/build.py
   ```
 
-  It generates `src/tokens.css` and `src/fonts.css` and concatenates `src/` into `theme.css`. The build fails if contrast drops, a physical property appears outside the documented LTR zones, `!important` or an external URL shows up, the file exceeds 700 KB, or `manifest.json` or the Style Settings block is invalid.
-- **Test scripts:**
+  It generates `src/tokens.css` and `src/fonts.css` and concatenates `src/` into `theme.css`, so don't edit those three files by hand. The build fails if contrast drops, a physical property appears outside the documented LTR zones, `!important` or an external URL shows up, the file exceeds 700 KB, or `manifest.json` or the Style Settings block is invalid.
+- **Test scripts** (macOS; they expect Obsidian in `/Applications` and Node at `/opt/homebrew/bin/node`):
   - `scripts/obsidian-test.sh`: runs an isolated Obsidian instance on `test-vault/`. The Style Settings plugin is not committed; install it in the vault from the community directory, or copy it to `test-vault/.obsidian/plugins/obsidian-style-settings/`.
-  - `scripts/cli-check.sh`: checks the theme through the Obsidian CLI.
-  - `scripts/shoot-matrix.sh`: captures the screenshot matrix.
-- **Releasing:** bump `version` in `manifest.json`, add a line to [CHANGELOG.md](CHANGELOG.md) and push a tag with the same number; GitHub Actions creates a draft release.
+  - `scripts/cli-check.sh`: checks the computed values of the key rules in both modes through the Obsidian CLI.
+  - `scripts/shoot-matrix.sh ar|en`: captures the screenshot matrix into `screenshots/matrix/` and `screenshots/ui/`. Git only tracks the shots the README uses; add others with `git add -f` if you need them.
+- **Releasing:** bump `version` in `manifest.json`, add a section to [CHANGELOG.md](CHANGELOG.md), write the release notes in `release-notes/<version>.md`, then push a tag with the same number; GitHub Actions creates a draft release with `manifest.json` and `theme.css` attached.
 
 ## Credits & license
 

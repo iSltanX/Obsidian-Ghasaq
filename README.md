@@ -11,7 +11,7 @@
 <p align="center" dir="ltr"><b>An Arabic-first Obsidian theme for long-form writing and reading:</b> violet night ink, warm paper and an amber last light. Careful right-to-left layout, embedded Noto Naskh Arabic and Cairo, a qasida mode for classical verse, dark and light modes, and 9 Style Settings options. <a href="README.en.md">Full English documentation →</a></p>
 
 <p align="center">
-  <a href="https://github.com/iSltanX/Ghasaq/releases/latest"><img src="https://img.shields.io/github/v/release/iSltanX/Ghasaq?label=release&color=AB632B" alt="الإصدار"></a>
+  <a href="https://github.com/iSltanX/Obsidian-Ghasaq/releases/latest"><img src="https://img.shields.io/github/v/release/iSltanX/Obsidian-Ghasaq?label=release&color=AB632B" alt="الإصدار"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-5F459A" alt="الرخصة"></a>
   <img src="https://img.shields.io/badge/Obsidian-1.14.4%2B-1E1B29" alt="Obsidian 1.14.4+">
 </p>
@@ -50,8 +50,6 @@
 | **ملاحظة مختلطة الاتجاه** | **لوحة الأوامر** |
 | ![ملاحظة فيها إنجليزي وأرقام وشيفرة](screenshots/matrix/ar-ghasaq-mixed-read.png) | ![لوحة الأوامر](screenshots/ui/ar-ghasaq-command-palette.png) |
 
-بقية اللقطات في [`screenshots/`](screenshots/). وفيها مصفوفة كاملة: الوضعان، والواجهتان العربية والإنجليزية، والتحرير والقراءة، وCanvas، والرسم البياني، وBases، والإعدادات.
-
 ## المزايا
 
 **الطباعة العربية**
@@ -88,7 +86,7 @@
 
 ### يدويًا
 
-1. نزّل `manifest.json` و`theme.css` من [آخر إصدار](https://github.com/iSltanX/Ghasaq/releases/latest).
+1. نزّل `manifest.json` و`theme.css` من [آخر إصدار](https://github.com/iSltanX/Obsidian-Ghasaq/releases/latest).
 2. ضعهما في `.obsidian/themes/Ghasaq/` داخل خزينتك.
 3. اختر Ghasaq من الإعدادات ← المظهر.
 
@@ -150,24 +148,29 @@ cssclasses:
 
 ## المشكلات والاقتراحات
 
-- **وجدت خللًا؟** افتح [بلاغًا](https://github.com/iSltanX/Ghasaq/issues/new) وأرفق لقطة شاشة، واذكر نسخة Obsidian والجهاز ولغة الواجهة.
-- **عندك فكرة؟** افتح [اقتراحًا](https://github.com/iSltanX/Ghasaq/issues/new) وصِف ما تريد.
+- **وجدت خللًا؟** افتح [بلاغًا](https://github.com/iSltanX/Obsidian-Ghasaq/issues/new) وأرفق لقطة شاشة، واذكر نسخة Obsidian والجهاز ولغة الواجهة.
+- **عندك فكرة؟** افتح [اقتراحًا](https://github.com/iSltanX/Obsidian-Ghasaq/issues/new) وصِف ما تريد.
 
 ## التطوير
 
 - **الهوية في Figma هي مصدر الحقيقة:** الألوان والمقاسات والطباعة تُعدَّل هناك. ثم يُشغَّل `scripts/figma/export-variables.js` عبر Figma MCP، ويُحفظ ناتجه في `tokens/figma.json`.
+- **المتطلبات:** Python 3 (جُرّب على 3.9) ومعه `fontTools` و`brotli`، و`PyYAML` لفحص كتلة Style Settings:
+
+  ```
+  python3 -m pip install fonttools brotli pyyaml
+  ```
 - **أمر البناء الواحد:**
 
   ```
   python3 scripts/build.py
   ```
 
-  يولّد `src/tokens.css` و`src/fonts.css`، ويجمع `src/` في `theme.css`. ويُفشل البناء إن نزل التباين، أو ظهرت خاصية فيزيائية خارج مناطق LTR الموثّقة، أو `!important`، أو رابط خارجي، أو تجاوز الحجم 700KB، أو فسد `manifest.json` أو كتلة Style Settings.
-- **سكربتات الاختبار:**
+  يولّد `src/tokens.css` و`src/fonts.css`، ويجمع `src/` في `theme.css`، فلا تحرّر هذه الملفات الثلاثة يدويًا. ويُفشل البناء إن نزل التباين، أو ظهرت خاصية فيزيائية خارج مناطق LTR الموثّقة، أو `!important`، أو رابط خارجي، أو تجاوز الحجم 700KB، أو فسد `manifest.json` أو كتلة Style Settings.
+- **سكربتات الاختبار** (على macOS، وتفترض Obsidian في `/Applications` وNode في `/opt/homebrew/bin/node`):
   - `scripts/obsidian-test.sh`: يشغّل نسخة Obsidian معزولة على `test-vault/`. إضافة Style Settings لا تُرفع مع المستودع؛ ثبّتها في الخزينة من المتجر، أو انسخها إلى `test-vault/.obsidian/plugins/obsidian-style-settings/`.
-  - `scripts/cli-check.sh`: يتحقق عبر Obsidian CLI.
-  - `scripts/shoot-matrix.sh`: يلتقط مصفوفة اللقطات.
-- **الإصدار:** ارفع `version` في `manifest.json`، وأضف سطرًا إلى [CHANGELOG.md](CHANGELOG.md)، ثم ادفع وسمًا بالرقم نفسه، فينشئ GitHub Actions مسودّة الإصدار.
+  - `scripts/cli-check.sh`: يتحقق عبر Obsidian CLI من القيم المحسوبة لأهم القواعد في الوضعين.
+  - `scripts/shoot-matrix.sh ar|en`: يلتقط مصفوفة اللقطات في `screenshots/matrix/` و`screenshots/ui/`. لا يتتبّع Git منها إلا ما يعرضه README، فأضف غيرها بـ `git add -f` إن احتجت إليه.
+- **الإصدار:** ارفع `version` في `manifest.json`، وأضف قسمًا إلى [CHANGELOG.md](CHANGELOG.md)، واكتب ملاحظات الإصدار في `release-notes/<الرقم>.md`، ثم ادفع وسمًا بالرقم نفسه، فينشئ GitHub Actions مسودّة إصدار مرفقًا بها `manifest.json` و`theme.css`.
 
 ## شكر
 
